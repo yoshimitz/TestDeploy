@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Lmyc.Models.Boat>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
+
+
+@{
+    ViewData["Title"] = _localizer["Index"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
+<form asp-controller="Boat" asp-action="BoatIndex" class="form-horizontal" novalidate>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BoatName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Picture)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LengthInFeet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Make)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RecordCreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BoatName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Picture)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LengthInFeet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Make)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @item.RecordCreationDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @:@Html.ActionLink("Edit", "Edit", new { id = item.BoatId }) |
+                            @:@Html.ActionLink("Details", "Details", new { id = item.BoatId }) |
+                            @:@Html.ActionLink("Delete", "Delete", new { id = item.BoatId })
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

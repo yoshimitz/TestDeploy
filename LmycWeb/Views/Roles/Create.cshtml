@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 style="font-weight:bold; color:#053177">Create Role</h2>
+
+
+@Html.ActionLink("Roles", "Index") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div>
+        Role name
+    </div>
+    <p>
+        @Html.TextBox("RoleName")
+    </p>
+    if (ViewBag.ResultMessage != null)
+    {
+        <span style="color:red;">@ViewBag.ResultMessage</span><br />
+    }
+    <input type="submit" value="Add" />
+}
+
